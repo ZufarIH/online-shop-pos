@@ -1,10 +1,19 @@
 <%- include('../v_layout/head') %>
+
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <link rel="stylesheet" href="/css-tambahan/layout-login.css">
     <main class="form-signin w-100 m-auto">
         <form method="post" action="/auth/proses-login">
           <img class="mb-4" src="/gambar/nc grad 1.jpg" alt="" width="72" height="72">
-          <h1 class="h3 mb-3 fw-normal">Silahkan Masuk</h1>
+          <br>
+          <% if (typeof notifikasi !== 'undefined') { %>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%= notifikasi %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          <% } %> 
+          <!-- buat bikin notifikasi gagal masuk -->
+          <h1 class="h3 mt-3 mb-3 fw-normal">Silahkan Masuk</h1>
       
           <div class="form-floating">
             <input type="email" class="form-control" name="form_email" placeholder="name@example.com">
