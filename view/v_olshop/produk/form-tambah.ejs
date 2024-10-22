@@ -5,7 +5,7 @@
     <h1>Buat produk</h1>
     <hr>
     <br>
-    <form action="/olshop/produk/proses-insert" method="post">
+    <form action="/olshop/produk/proses-insert" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-lg-6">
                 <div class="mb-3">
@@ -30,6 +30,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="col-lg-6">
                 <div class="mb-3">
                     <label class="form-label">foto 1</label>
@@ -48,6 +49,7 @@
                     <input type="file" name="form_video" class="form-control" accept=".mp4, .mkv, .mov, .mpeg, .mpg, .avi, .wmv">
                 </div>
             </div>
+
             <div class="col-12">
                 <div class="row">
                     <div class="col-lg-4">
@@ -74,6 +76,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
 
 <%- include('../../v_layout/olshop-footer') %>
 <%- include('../../v_layout/foot') %>
