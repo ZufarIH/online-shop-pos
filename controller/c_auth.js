@@ -48,4 +48,10 @@ module.exports =
         }
     },
 
+    proses_logout: function(req,res) {
+        req.session.destroy( (err) => {
+            res.redirect('/') // will always fire after session is destroyed
+        })
+    },
+
 }

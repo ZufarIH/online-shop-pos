@@ -19,6 +19,17 @@ module.exports =
         return eksekusi( sqlSyntax )
     },
 
+    getSatu: function(id_produk) {
+        let sqlSyntax = mysql.format(
+            `SELECT
+                p.*, k.nama as kategori_nama 
+            FROM master_produk as p
+            LEFT JOIN master_produk_kategori as k ON k.id = p.kategori_id
+            WHERE p.id = ?;`,
+            [id_produk]
+        )
+        return eksekusi( sqlSyntax )
+    },
 
 
     insert: function(req, filename_foto1, filename_foto2, filename_foto3) {
