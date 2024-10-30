@@ -54,4 +54,15 @@ module.exports =
         })
     },
 
+
+    // buat hash (cek di app.js)
+    percobaan: function(req,res) {
+        let inputpassword   = req.params.inputpassword
+        let passwordhashed  = bcrypt.hashSync(inputpassword)
+        res.send(
+            `<span>inputpassword = ${inputpassword}</span><br>
+            <span>passwordhashed = ${passwordhashed}</span><br>`
+        )
+    }
+
 }
