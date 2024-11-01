@@ -11,6 +11,39 @@ module.exports =
             `SELECT * FROM master_produk_kategori`
         )
         return eksekusi( sqlSyntax )
-    }
+    },
+
+    // getSatu: function(id_produk) {
+    //     let sqlSyntax = mysql.format(
+    //         `SELECT * FROM master_produk_kategori
+    //         WHERE id = ?`,
+    //         [id_produk]
+    //     )
+    //     return eksekusi( sqlSyntax )
+    // },
+
+    getSatu: function(idsatu) {
+        let sqlSyntax = mysql.format(
+            `SELECT
+                mpk.*, mp.nama as nama
+            FROM master_produk_kategori as mpk
+            LEFT JOIN master_produk as mp ON mp.id = mpk.id
+            WHERE mpk.id = ?;`,
+            [idsatu]
+        )
+        return eksekusi( sqlSyntax )
+    },
+
+    // getSatu: function(id_produk) {
+    //     let sqlSyntax = mysql.format(
+    //         `SELECT
+    //             p.*, k.nama as kategori_nama 
+    //         FROM master_produk as p
+    //         LEFT JOIN master_produk_kategori as k ON k.id = p.kategori_id
+    //         WHERE p.id = ?;`,
+    //         [id_produk]
+    //     )
+    //     return eksekusi( sqlSyntax )
+    // },
 
 }

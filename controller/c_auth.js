@@ -13,7 +13,63 @@ module.exports =
         }
         res.render('v_auth/login', data)
         }
+
     },
+
+    halaman_register: function(req,res) {
+        if (req.session.user) {
+            res.redirect('/toko')
+        }else{
+        let data ={
+            notifikasi: req.query.notif,
+        }
+        res.render('v_auth/register', data)
+        }
+    },
+
+    halaman_edit: function(req,res) {
+        if (req.session.user) {
+            res.redirect('/toko')
+        }else{
+        let data ={
+            notifikasi: req.query.notif,
+        }
+        res.render('v_auth/form-edit-pengguna', data)
+        }
+    },
+
+// coba
+    proses_register: async function(req,res) {
+        let password   = req.body.form_password
+        let passwordhash  = bcrypt.hashSync(password)
+        
+        try {
+            let insert = await model_user.insertReg( req,passwordhash )
+            if (insert.affectedRows > 0) {
+                res.redirect(`/auth/login?notif=Berhasil registrasi, silahkan login`)
+            }
+        } catch (error) {
+            throw error
+        }
+    },
+
+    proses_edit: async function(req,res) {
+        let password   = req.body.form_password
+        let passwordhash  = bcrypt.hashSync(password)
+        
+        try {
+            let insert = await model_user.editUser( req,passwordhash )
+            if (insert.affectedRows > 0) {
+                res.redirect(`/auth/login?notif=Berhasil registrasi, silahkan login`)
+            }
+        } catch (error) {
+            throw error
+        }
+    },
+    
+    
+
+
     proses_login: async function(req,res) {
         // ambil input dari halaman login
         let form_email = req.body.form_email

@@ -36,14 +36,23 @@ app.set('views', './view')
 
 app.get('/', c_beranda.halaman_awal)
 app.get('/auth/login', c_auth.halaman_login)
+app.get('/auth/register', c_auth.halaman_register)
 app.post('/auth/proses-login', c_auth.proses_login)
-app.post('/auth/logout', cek_login, c_auth.proses_logout)
+app.get('/auth/edit', c_auth.proses_edit)
+app.post('/auth/logout', c_auth.proses_logout)
+// coba
+app.post('/auth/proses-register', c_auth.proses_register)
+app.post('/auth/proses-login', c_auth.proses_login)
 
 app.get('/toko', cek_login, c_toko.index)
 
 app.get('/olshop', cek_login, c_olshop.halaman_beranda)
 app.get('/olshop/produk', cek_login, c_olshop.halaman_index_produk)
 app.get('/olshop/produk/tambah', cek_login, c_olshop.halaman_form_tambah)
+// coba
+app.get('/olshop/produk/kategori/:id_produk', cek_login, c_olshop.halaman_katergori)
+// coba
+app.get('/olshop/produk/pengguna', cek_login, c_olshop.detail_pengguna)
 app.post('/olshop/produk/proses-insert', cek_login, c_olshop.proses_insert_produk)
 app.get('/olshop/produk/detail/:id_produk', cek_login, c_olshop.detail_produk)
 

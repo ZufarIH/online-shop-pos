@@ -1,0 +1,92 @@
+<%- include('../../v_layout/head') %>
+<%- include('../../v_layout/olshop-header') %>
+
+<%
+    last_update = (produkJual[0].updated_at) ? produkJual[0].updated_at : produkJual[0].created_at
+    last_update_format = moment(last_update).format('DD MMMM YYYY, HH:mm')
+%>
+<form action="/olshop/produk/proses-insert" method="post" enctype="multipart/form-data"></form>
+
+<div class="container my-5">
+    <div class="row">
+        <form action="/olshop/produk/proses-insert" method="post" enctype="multipart/form-data"></form>
+        <div class="col-lg-5">
+            <div id="carouselExample" class="carousel slide" style="max-height: 50%;">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/upload/produk-foto/<%= produkJual[0].foto1 %>" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="card-body">
+                        <h4 class="card-title">Profil Pengguna</h4>
+                    
+                        <br>
+                        <div class="row g-0">
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="card-title text-capitalize">Nama Lengkap</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text"><%= req.session.user[0].nama_lengkap %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="card-title text-capitalize">Email</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text"><%= req.session.user[0].email %></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6 class="card-title text-capitalize">Alamat</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text"><%= req.session.user[0].alamat %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col text-end">
+                           
+                                <button class="btn btn-primary">Edit Profil</button>
+                            </a>
+                        </div>
+                        <br>
+                        <div class="col text-end">
+                            <a href="/auth/proses_edit">
+                                <button type="submit" class="btn btn-primary">Hapus User</button>
+                            </a>
+                        </div>
+                        <p class="card-text">
+                            
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../v_layout/olshop-footer') %>
+<%- include('../../v_layout/foot') %>

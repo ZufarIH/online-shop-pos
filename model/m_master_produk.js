@@ -31,6 +31,15 @@ module.exports =
         return eksekusi( sqlSyntax )
     },
 
+    getKategori: function(id_produk) {
+        let sqlSyntax = mysql.format(
+            `SELECT * FROM master_produk
+            WHERE kategori_id = ?`,[id_produk]
+            
+        )
+        return eksekusi( sqlSyntax )
+    },
+
 
     insert: function(req, filename_foto1, filename_foto2, filename_foto3) {
         let sqlData = {

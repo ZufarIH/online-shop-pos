@@ -4,11 +4,15 @@ const m_prod_kategori   = require('../model/m_master_produk_kategori')
 const m_master_produk   = require('../model/m_master_produk')
 const m_trans_keranjang = require('../model/m_trans_keranjang')
 const m_trans_pembelian = require('../model/m_trans_pembelian')
+// const searchBar         = document.getElementById('searchBar')
 
+
+// ctrl + f
 module.exports =
 {
 
     halaman_beranda: async function(req,res) {
+
         let data = {
             req                     : req,
             kategoriProduk          : await m_prod_kategori.getSemua(),
@@ -23,7 +27,40 @@ module.exports =
             produk_diKirim          : await m_trans_pembelian.getJumlahProduk_diKirim(req),
             detailProduk_diKirim    : await m_trans_pembelian.getDetailProduk_diKirim(req),
         }
+
+        // let users = []
+
+        // searchBar.addEventListener('keyup', (e) => {
+        //   const value = e.target.value.toLowerCase()
+        //   users.forEach(user => {
+        //         const isVisible =
+        //           user.nama.toLowerCase().includes(value)
+        //         user.element.classList.toggle("hide", !isVisible)
+        //       })
+        //     })
+
         res.render('v_olshop/beranda', data)
+    },
+
+    // f project kategori
+    halaman_katergori: async function(req,res) {
+        let id = req.params.id_produk
+        let idk = req.params.idsatu
+        let data = {
+            req                     : req,
+            kategoriProduk          : await m_prod_kategori.getSemua(),
+            produk_diKeranjang      : await m_trans_keranjang.getJumlahProduk_diKeranjang(req),
+            produkJual              : await m_master_produk.getKategori(id),
+            moment                  : moment,
+            notifikasi              : req.query.notif,
+            produkExist_diKeranjang : await m_trans_keranjang.cekProdukExist(req),
+            produk_diProses         : await m_trans_pembelian.getJumlahProduk_diProses(req),
+            detailProduk_diProses   : await m_trans_pembelian.getDetailProduk_diProses(req),
+            orderanMasuk            : await m_trans_pembelian.getJumlahOrderanMasuk(),
+            produk_diKirim          : await m_trans_pembelian.getJumlahProduk_diKirim(req),
+            detailProduk_diKirim    : await m_trans_pembelian.getDetailProduk_diKirim(req),
+        }
+        res.render('v_olshop/produk/kategori', data)
     },
 
 
@@ -138,6 +175,36 @@ module.exports =
         res.render('v_olshop/produk/detail', data)
     },
 
+    detail_pengguna: async function(req,res) {
+        let id = req.params.id_produk
+        let data = {
+            req                 : req,
+            kategoriProduk      : await m_prod_kategori.getSemua(id),
+            produk_diKeranjang  : await m_trans_keranjang.getJumlahProduk_diKeranjang(req),
+            produkJual          : await m_master_produk.getSemua(),
+            produk_diProses     : await m_trans_pembelian.getJumlahProduk_diProses(req),
+            detailProduk_diProses   : await m_trans_pembelian.getDetailProduk_diProses(req),
+            orderanMasuk            : await m_trans_pembelian.getJumlahOrderanMasuk(),
+            produk_diKirim          : await m_trans_pembelian.getJumlahProduk_diKirim(req),
+            detailProduk_diKirim    : await m_trans_pembelian.getDetailProduk_diKirim(req),
+            moment              : moment,
+        }
+        res.render('v_olshop/produk/pengguna', data)
+    },
+
+    // proses_edit: async function(req,res) {
+    //     let password   = req.body.form_password
+    //     let passwordhash  = bcrypt.hashSync(password)
+        
+    //     try {
+    //         let insert = await model_user.editUser( req,passwordhash )
+    //         if (insert.affectedRows > 0) {
+    //             res.redirect(`/auth/login?notif=Berhasil registrasi, silahkan login`)
+    //         }
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // },
 
 
     keranjang_input: async function(req,res) {
@@ -237,5 +304,35 @@ module.exports =
             res.redirect(`/olshop/orderan-masuk/list?notif=${error.message}`)
         }
     },
+
+    
+        
+        //     let users = []
+
+        // searchInput.addEventListener("input", e => {
+        //   const value = e.target.value.toLowerCase()
+        //   users.forEach(user => {
+        //     const isVisible =
+        //       user.name.toLowerCase().includes(value) ||
+        //       user.email.toLowerCase().includes(value)
+        //     user.element.classList.toggle("hide", !isVisible)
+        //   })
+        // })
+
+        //         fetch("https://jsonplaceholder.typicode.com/users")
+        //   .then(res => res.json())
+        //   .then(data => {
+        //     users = data.map(user => {
+        //       const card = userCardTemplate.content.cloneNode(true).children[0]
+        //       const header = card.querySelector("[data-header]")
+        //       const body = card.querySelector("[data-body]")
+        //       header.textContent = user.name
+        //       body.textContent = user.email
+        //       userCardContainer.append(card)
+        //       return { name: user.name, email: user.email, element: card }
+        //     })
+        //   })
+
+    
 
 }

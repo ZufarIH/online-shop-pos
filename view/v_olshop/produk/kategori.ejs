@@ -1,0 +1,84 @@
+<%- include('../../v_layout/head') %>
+<%- include('../../v_layout/olshop-header') %>
+
+
+<main>
+    
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+  <br>
+  <br>
+  
+    <div class="container mb-5">
+        
+
+        <% if (typeof notifikasi !== 'undefined') { %>
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <%- notifikasi %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% } %>
+
+        <h4 class="title">Kategori Produk</h4>
+       
+        <br>
+
+        <div class="row">
+            <% for (const i in produkJual) { %>
+                <%
+                    let maxlength = 20
+                    let namaProdukTrim = produkJual[i].nama.substring(0, maxlength)
+
+                    if (produkJual[i].nama.length > maxlength) {
+                        namaProdukTrim += '...'
+                    }
+                %>
+                <div class="col-lg-3 mb-4">
+                    <div class="card">
+                        <img src="/upload/produk-foto/<%= produkJual[i].foto1 %>" class="card-img-top p-2 bg-light" style="height: 200px; object-fit: contain;" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title"><%= namaProdukTrim %></h5>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <span class="card-text">Rp<%= Number(produkJual[i].harga).toLocaleString('id-ID') %></span>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <span class="card-text text-end"><%= produkJual[i].stok %> unit</span>
+                                </div>
+                            </div>
+                            <div class="row g-0">
+                                <div class="col-6">
+                                    <a href="/olshop/produk/detail/<%= produkJual[i].id %>" class="btn btn-sm btn-outline-secondary text-capitalize mb-2">lihat produk</a>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <%
+                                        let produkSudahAdaDiKeranjang = produkExist_diKeranjang.find(o => o.id_produk === produkJual[i].id);
+                                    %>
+                                    <% if (produkSudahAdaDiKeranjang) { %>
+                                        <button class="btn btn-sm btn-success rounded-circle">
+                                            <i class="fa-solid fa-check"></i>
+                                        </button>
+                                    <% } else { %>
+                                            <a href="/olshop/keranjang/input/<%= produkJual[i].id %>" class="btn btn-sm btn-primary rounded-circle shadow-sm mb-2"><i class="fa-solid fa-cart-shopping"></i></a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+  
+    </div>
+
+   
+</main>
+
+<pre>
+    <%= JSON.stringify(produkJual  , null, 4) %>
+</pre>
+
+<%- include('../../v_layout/olshop-footer') %>
+<%- include('../../v_layout/foot') %>
